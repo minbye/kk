@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+     $route  : 路由对象 => 解析url路径 hash值 =>  有几个属性 (path params query ..)  => 获取属性值
+     $router : 路由实例对象 => 负责一些跳转的功能 => 有几个方法 => 主要用来调方法 
+                this.$router.push('/two')
+   -->
+
+    <div id="app"></div>
+    <script src="./vue.js"></script>
+    <script>
+      const router = new VueRouter()
+
+      const vm = new Vue({
+        router,
+        el: '#app',
+        data: {}
+      })
+    </script>
+  </body>
+</html>

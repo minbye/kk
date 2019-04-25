@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+       命名路由
+       1. 在 路由匹配规则里 添加 name='two'
+       2. 可以用在链接上或者跳转 
+       
+       2.1 链接上  (声明式导航)
+        - <router-link to='/two'></router-link> 
+        - <router-link :to="{ name : 'two' }"></router-link> 
+
+       2.2 跳转 (编程式导航)
+       - this.$router.push('/two') 
+       - this.$router.push({
+         name : 'two'
+       })
+       
+
+     -->
+    <div id="app">
+      <!-- 第一步 : 入口  声明式导航 -->
+      <!-- <router-link to="/one">One</router-link> -->
+      <!-- <router-link :to="{ name : 'one' }">也是One</router-link> -->
+
+      <!-- 声明式导航 -->
+      <router-link to="/two">Two</router-link>
+      <button @click="fn">跳转</button>
+
+      <!-- 第四步 :出口  -->
+      <router-view></router-view>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+      // 第三步 : 注册组件
+      const One = {
+        template: `
+       <div> 子组件 one :  </div>
+        `
+      }
+      const Two = {
+        template: `
+       <div> 子组件 Two :  </div>
+        `
+      }
+      // 实例化路由
+      const router = new VueRouter({
+        // 第二步 规则
+        routes: [
+          { path: '/one', name: 'one', component: One },
+          { path: '/two', name: 'two', component: Two }
+        ]
+      })
+
+      const vm = new Vue({
+        router,
+        el: '#app',
+        data: {},
+        methods: {
+          fn() {
+            // 跳转
+            // $router : 实例路由
+            // 编程式导航
+            // this.$router.push('/two')
+            this.$router.push({
+              name: 'two'
+            })
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

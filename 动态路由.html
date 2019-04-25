@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 第一步 : 入口  声明式导航 -->
+    <router-link to="/detail/1">手机1</router-link>
+    <router-link to="/detail/2">手机2</router-link>
+    <router-link to="/detail/3">手机3</router-link>
+    <router-link to="/detail">手机4</router-link>
+
+    <!-- 第四步 :出口  -->
+    <router-view></router-view>
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./vue-router.js"></script>
+  <script>
+    // 第三步 : 注册组件
+    const Detail = {
+      template: `
+       <div> 详情页组件 : {{ $route.params.id }}  </div>
+        `,
+      // created() {
+        // console.log(this.$route.params.id)
+        // console.log(this.$route);
+      // },
+      // 一般不使用生命周期函数，
+      // 而是使用 watch 监听动态变化
+      // watch: {
+      //   // to : 新值 目标路由对象
+      //   // from : 旧值 来源路由对象
+      //   $route(to, from) {
+      //     console.log(to.params.id)
+      //   }
+      // }
+    }
+    // 实例化路由
+    const router = new VueRouter({
+      // 第二步 规则
+      // : 后面为表达式|数字|布尔值等    ？表示 :id 可有可无
+      routes: [{ path: '/detail/:id?', component: Detail }]
+    })
+
+    const vm = new Vue({
+      router,
+      el: '#app',
+      data: {}
+    })
+  </script>
+</body>
+
+</html>

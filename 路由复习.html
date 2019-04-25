@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+    准备工作：
+    1.安装
+    2.引入
+    3.实例化路由+挂载到vue实例上
+
+    具体步骤：
+    1.入口   url   声明式导航
+    2.规则
+    3.组件
+    4.出口
+
+    总结：拿到一个“入口路径”，根据“规则”找到对应的“组件”，显示到“出口”位置
+   -->
+  <div id="app">
+    <!-- 第一步：入口   声明式导航 -->
+    <router-link to="/one">One</router-link>
+    <router-link to="/two">Two</router-link>
+    <router-link to="/three">Three</router-link>
+    <router-link to="/four">Four</router-link>
+
+    <!-- 第四步：出口 -->
+    <router-view></router-view>
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+  <script>
+
+    // 第三步：注册事件
+    const One = {
+      template: `
+    <div>one的组件</div>
+    `
+    }
+
+    // two
+    const Two = {
+      template: `<div>two的组件</div>`
+    }
+    // three
+    const Three = {
+      template: `<div>three的组件</div>`
+    }
+    // four
+    const Four = {
+      template: `<div>four的组件</div>`
+    }
+
+    // 实例化路由
+    const router = new VueRouter({
+      //第二步：规则
+      routes: [
+        {
+          path: '/one',
+          component: One,
+        },
+        {
+          path: '/two',
+          component: Two,
+        },
+        {
+          path: '/three',
+          component: Three,
+        },
+        {
+          path: '/four',
+          component: Four,
+        },
+      ]
+    })
+
+    const vm = new Vue({
+      router,
+      el: '#app',
+      data: {}
+    })
+  </script>
+</body>
+
+</html>

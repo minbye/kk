@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    .red  {
+      color: red;
+    }
+
+    .blue {
+      color : blue;
+    }
+
+    .fz  {
+      font-size: 70px
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 
+     第一步 : 安装 vue, (如果本地有 拷贝过来)
+     第二步 : 引入 vue.js
+     第三步 : 实例化vue
+            el : 指定vue管理的边界
+            data : 数据, {{}}  可以直接读取 data 里的属性/数据
+   -->
+  <div id="app">
+    <!-- 以后这里的所有的内容 都归 vue 管理  -->
+    <!-- {{ 可以直接读取 data里的数据 num  } } -->
+    <!-- v-model  -   双向数据绑定
+        1. 说明 : 把 input的value值 和  data里的name 值 绑定到了一起,一方发生了变化,另外一方跟着变化
+        2. v-model一般情况下,用在 表单元素上(input checkbox)
+        3. v-model 使用在不同的表单元素上,绑定的数据不一样(起的效果 不一样) -->
+    <input type="text" v-model="name">
+    <input type="checkbox" v-model="ischecked">
+    <!-- v-text 和  v-html 
+     1. v-text 相当于之前 innerText   (功能和{{ }} 一样,,只不过位置不一样)
+         不识别 h1 标签,,只当字符串使用
+         v-text 写在头标签里面
+         {{}}  写在 双标签内部 
+     2. v-html 相当于之前  innerHTML
+         识别标签 -->
+    <div v-text="msg1"></div>
+    <div v-html="msg2"></div>
+    <div>{{ msg1 }}{{ msg2 }}</div>
+    <!-- 
+        v-bind : 动态数据绑定 (单向 M => V)
+      -->
+    <!-- 使用 v-bind -->
+    <!-- <div v-bind:title="tit">{{num}}</div> -->
+    <!-- v-bind 有一个语法糖 简写 -->
+    <div :title="tit" :class="{red:isRed,fz:isFz}">{{num}}</div>
+    <!-- 
+        v-model : 双向数据绑定 一般用在表单元素 上
+        v-bind (:) 动态数据绑定(单向)  可以用在任意元素, 读取属性值
+      -->
+    <!-- 操作样式 -->
+    <h1 :class="{ red:isRed,fz:isFz}">我也是h1</h1>
+    <h1 :style="{ color:'red',fonsize:size}">我也是是是h1</h1>
+    <!-- 
+        v-on : 注册/绑定事件 
+        1. 注册事件  v-on:click='click1'
+        2. 事件处理函数 写在 methods : 
+      -->
+    <!-- 注册点击事件 -->
+    <!-- <button v-on:click="click1">按钮</button> -->
+    <!-- 语法糖 简写 -->
+    <!-- v-on: => @ -->
+    <button @click="click1">按钮</button>
+    <!-- 传参 -->
+    <button @click="click1(4312)">按钮-传参</button>
+    <!-- 遍历list,创建对应个数的标签,显示 姓名 -->
+    <p v-for="item in list">{{ item.name }} {{ item.id }}</p>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    let i = 0;
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        num: 100,
+        tit: '加护甲',
+        name: 'asdsa',
+        ischecked: true,
+        msg1: '<h1>我是v-text的</h1>',
+        msg2: '<h1>我是v-html的</h1>',
+        isRed: true,
+        isFz: true,
+        size: '40px',
+        list: [
+          { id: 1, name: '张三' },
+          { id: 2, name: '李四' },
+          { id: 3, name: '王五' },
+        ],
+      },
+    // 事件处理函数/方法 放在 methods 里面
+    methods: {
+      // click1:function(){
+      //   console.log('点击到了');
+      // }
+      // 方法的简写
+      click1(n){
+        this.isRed=!this.isRed
+      }
+    }
+    })
+  </script>
+</body>
+
+</html>

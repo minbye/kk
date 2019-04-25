@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+      需求 : 页面一进来 (/), 展示多个组件 (header main footer)
+      命名视图 : 解决多个出口的问题
+      1. 规则
+       {  path : '/', components : {
+          default : header,
+          m : main,
+          f : footer
+      } }
+
+      2. 出口 
+       <router-view></router-view>
+       <router-view name='m'></router-view>
+       <router-view name='f'></router-view>
+   -->
+  <div id="app">
+    <!-- 第四步 :出口  -->
+    <!-- <router-view name="h"></router-view> -->
+    <router-view></router-view>
+    <router-view name="m"></router-view>
+    <router-view name="f"></router-view>
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./vue-router.js"></script>
+  <script>
+    // 第三步 : 注册组件
+    const header = {
+      template: `
+       <div> header   </div>
+        `
+    }
+    const main = {
+      template: `
+       <div> main   </div>
+        `
+    }
+    const footer = {
+      template: `
+       <div> footer   </div>
+        `
+    }
+
+    // 实例化路由
+    const router = new VueRouter({
+      // 第二步 规则
+      routes: [
+        {
+          path: '/',
+          components: {
+            default: header,
+            m: main,
+            f: footer
+          }
+        }
+      ]
+    })
+
+    const vm = new Vue({
+      router,
+      el: '#app',
+      data: {}
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+</head>
+<style>
+  .red {
+    color: red;
+    font-size: 50px;
+  }
+</style>
+<body>
+  <div id="app">
+    <!-- 第一步：入口   声明式导航 -->
+    <router-link to="/one">One</router-link>
+    <router-link to="/two">Two</router-link>
+
+    <!-- 第四步：出口 -->
+    <router-view></router-view>
+  </div>
+<script src="./vue.js"></script>
+<script src="./vue-router.js"></script>
+<script>
+  // 第三步：注册组件
+  const One={
+    template:`
+    <div> 这是组件 one </div>
+    `
+  }
+  const Two={
+    template:`
+    <div> 这是组件 two </div>
+    `
+  }
+
+  // 第二步：制定路由规则
+  const router = new VueRouter({
+    routes:[
+      {
+        path:'/one',
+        component: One
+      },
+      {
+        path:'/two',
+        component: Two,
+      }
+    ],
+    // 设置高亮
+    linkActiveClass:'red',
+  })
+
+  const vm=new Vue({
+    router,
+    el:'#app',
+    data:{},
+  })
+</script>
+</body>
+</html>

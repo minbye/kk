@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <div>
+      <div>
+        <div>
+          <jack></jack>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <rose></rose>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="./vue.js"></script>
+<script>
+  // 非父子之间传递信息，通过‘事件总线’（event bus）
+  // 事件总线，其实就是 空的实例
+  // 总结：非父子传递的步骤：
+  // 1.实例化事件总线 const bus=new Vue()
+  // 2.发送数据-触发事件 bus.$emit（‘唯一标识’，要传递的数据）
+  // 3.接受数据-注册事件 bus.$on（‘唯一标识’，res=>{ }）
+
+
+const bus= new Vue()
+
+//组件1
+Vue.component('jack',{
+  template:`
+  <div @click='send'>子组件 jack</div>
+  `,
+  methods: {
+    send(){
+      //jack-传递数据-触发事件
+      // bus.$emit('数据名','数据')
+      bus.$emit('love','adc')
+    }
+  },
+  created() {
+    // jack-接受数据-注册事件
+    bus.$on('love2',res=>{
+      console.log('jack接受到的数据：',res);
+    })
+  },
+})
+
+//组件2
+Vue.component('rose',{
+  template:`
+  <div @click='send'>子组件 rose</div>
+  `,
+  methods: {
+    send(){
+      //rose-传递数据-触发事件
+      // bus.$emit('数据名','数据')
+      bus.$emit('love2','ap')
+    }
+  },
+  created() {
+    // rose-接受数据-注册事件
+    bus.$on('love',res=>{
+      console.log('rose接受到的数据：',res);
+    })
+  },
+})
+
+  const vm=new Vue({
+    el:'#app',
+    data:{}
+  })
+</script>
+</body>
+</html>

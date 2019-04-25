@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+      嵌套路由 => 作用 : 想让一个组件显示在另外一个组件里面
+       1-url 手动测试 parent 和 child
+       2-想让child显示在 parent里面
+      两步
+      1. 在 parent组件内 留一个出口   <div> 父 parent <router-view></router-view></div>
+      2. 在 parent规则里 添加 children : [  { path:'/child', component : Child} ]
+         
+     -->
+  <div id="app">
+    <!-- 第一步：入口 -->
+    <router-link to="/parent">Parent</router-link>
+    <router-link to="/parent/child">Child</router-link>
+    <router-link to="/child">Child</router-link>
+    <!-- 第四步 :出口  -->
+    <router-view></router-view>
+    -------------无-------------
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./vue-router.js"></script>
+  <script>
+    // 第三步：注册事件
+    const Parent={
+      template:`
+      <div> 父组件 <router-view></router-view> </div>
+      `
+    }
+    const Child={
+      template:`
+      <div> 子组件 </div>
+      `
+    }
+
+    // 第二步：指定路由规则
+    const router = new VueRouter({
+      routes: [
+        {
+          path: '/parent',
+          component: Parent,
+          children: [
+            {
+              // 方式1 : 如果 path='/child' ==> 入口 /child
+              // children: [{ path: '/child', component: Child }]
+              // 方式2 : 如果 path='child' => 入口  /parent/child
+              path: 'child',
+              component: Child
+            }
+          ]
+        }
+      ]
+    })
+
+    const vm = new Vue({
+      router,
+      el: '#app',
+      data: {}
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+</head>
+<body>
+  <div id="app">
+      <!-- 子传父：第 2 步==>通过创建“自定义事件”与“父组件中的方法名”=>关联 -->
+    <wuqi @msg="pmsg" :zmsg="fmsg"></wuqi>
+  </div>
+  <script src="./vue.js"></script>
+<script>
+  Vue.component('wuqi',{
+    template:`<div>{{zmsg}}阿西吧，一个能打的都没有！</div>`,
+    props:['zmsg'],
+    // 子传父：第 3 步==>通过 created 触发该“自定义事件”，将准备的信息传递给父组件
+    created() {
+      // 通过 $emit(“事件名”,“传递的信息”) 来进行传出
+      this.$emit('msg','此人乃是<武器大师>')
+    },
+  })
+  const vm=new Vue({
+    el:'#app',
+    data:{
+      fmsg:'哈塞给！<托儿索被秒...>'
+    },
+    // 子传父：第 1 步==>在父组件中准备一个方法，用来接收子组件传来的信息
+    methods: {
+      pmsg(res){
+        console.log('我军接受到的信息：',res);
+      }
+    },
+  })
+</script>
+</body>
+</html>

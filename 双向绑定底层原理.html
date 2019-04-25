@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+</head>
+<body>
+  <input type="text" id="ipt">
+<script>
+  let obj={}
+  let temp;
+
+  let ipt=document.querySelector('#ipt')
+  // 监听input
+  ipt.oninput=function(){
+    obj.name=this.value
+  }
+
+  Object.defineProperty(obj,'name',{
+    // 赋值
+    set:function(newVal){
+      temp=newVal
+      // 拿到最新值 赋值给文本框
+      ipt.value=newVal
+    },
+    get:function(){
+      return temp
+    }
+  })
+</script>
+</body>
+</html>

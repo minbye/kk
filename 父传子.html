@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+</head>
+<body>
+  <div id="app">
+      <!-- 父传子：第 2 步==>通过创建“自定义属性”与子组件用来接收信息的“定义名”=>关联 -->
+    <yasuo :msg="pmsg+'》》托利亚克托！'"></yasuo>
+  </div>
+  <script src="./vue.js"></script>
+<script>
+  Vue.component('yasuo',{
+    template:`<div>{{msg}}</div>`,
+    // 父传子：第 3 步==>通过 props 来准备用来接收的“定义名”，须用 [' '] 来包裹“定义名”
+    props:['msg']
+  })
+  const vm=new Vue({
+    el:'#app',
+    // 父传子：第 1 步==>在 data 中准备需要传递的信息
+    data:{
+      pmsg:'哈塞给！<剑豪>'
+    }
+  })
+</script>
+</body>
+</html>
